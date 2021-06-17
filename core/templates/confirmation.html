@@ -42,5 +42,21 @@
 {%csrf_token%}
 {% endblock content %}
 {% block js %}
+<script type="text/javascript" id="data_script">
+    var address = "{{payment.address}}";
+    var url = "{% url 'core:payment_processed_buyer' %}";
+    var payment_id = "{{payment.id}}";
+</script>
+<script type="text/javascript">
+    var accept_payments = true;
+    var last_order = null
+</script>
+<script type="text/javascript" src="{% static 'js/loaddata.js' %}"></script>
+<script>
+    window.onload = function () {
+        loadData();
+    }
+</script>
+<script type="text/javascript" src="{% static 'js/paymentSocket.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/copy.js' %}"></script>
 {% endblock js %}
