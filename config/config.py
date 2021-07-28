@@ -2,7 +2,7 @@ from os import environ as env, path
 from pathlib import Path
 
 assert env.get("SECRET_KEY"), "Secret key not found"
-assert env.get("BLOCKONOMICS_API_KEY"), "Blockonomics API not found"
+assert env.get("BLOCKONOMICS_API_KEY"), "Blockonomics API Key not found"
 
 config = {
     "secret_key": env.get("SECRET_KEY"),
