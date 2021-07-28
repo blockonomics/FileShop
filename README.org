@@ -3,7 +3,7 @@
 
 * Prerequisites
   We suggest to use ~venv~ [[https://docs.python.org/3/tutorial/venv.html][Virtual Environments]], It should work without that also
-  - Python >= 3.6
+  - [[https://python.org][Python]] >= 3.6
     
 * Before we begin
   - Generate ~SECRET_KEY~ from https://docs.djangoproject.com/en/dev/ref/settings/#secret-key    
@@ -30,9 +30,9 @@
   After finishing above steps, From project root folder run below commands to setup the database
   #+NAME: database
   #+BEGIN_SRC sh
-	python manage.py migrate
-	python manage.py makemigrations
-	python manage.py migrate
+    python manage.py migrate
+    python manage.py makemigrations
+    python manage.py migrate
   #+END_SRC
 
 * Running the application
@@ -43,8 +43,8 @@
     python manage.py runserver 8080
   #+END_SRC
 ** Access the application
-   Now you could access the application from web browser at http://localhost:8080
-   Note: If you changed port in above step then your link will look like http://localhost:<PORT>, PORT is the number provided in the above step
+   Now you could access the application from web browser at ~http://localhost:8080~
+   Note: If you changed port in above step then your link will look like ~http://localhost:<PORT>~, PORT is the number provided in the above step
 
 * Business Model
   Hosting and running the project can be good revenue source. Owner of
@@ -58,11 +58,11 @@
    development. Funding will be given to merged pull requests classified as
    following:
    
-   - Easy (5-20USD) : Minor changes in UI/styling, few line bug fixes,
+   - *Easy (5-20USD)* : Minor changes in UI/styling, few line bug fixes,
   documentation
-   - Medium (20-100USD): Adding a minor feature that requires 10+ lines of
+   - *Medium (20-100USD)*: Adding a minor feature that requires 10+ lines of
   code, substantial frontend functionality
-   - Hard (100-250USD): A new feature that noticeably increases the project
+   - *Hard (100-250USD)*: A new feature that noticeably increases the project
   functionality, major refactoring / new UI components
 
 ** Bounties paid till now
