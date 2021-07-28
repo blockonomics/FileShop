@@ -1,5 +1,5 @@
 * Overview
-  Website/marketplace to sell files anonymously and receive BTC or BCH.
+  Website/marketplace ♨ to sell files anonymously and receive BTC or BCH (₿).
 
 * Prerequisites
   We suggest to use ~venv~ [[https://docs.python.org/3/tutorial/venv.html][Virtual Environments]], It should work without that also
