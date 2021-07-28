@@ -12,25 +12,23 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
-from dotenv import load_dotenv, find_dotenv
 
-load_dotenv(find_dotenv())
-
+from config.config import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
-STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+BASE_DIR = config.get("base_dir")
+STATIC_ROOT = config.get("static_root")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = config.get("secret_key")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config.get("debug")
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = config.get("allowed_hosts")
 
 
 # Application definition
@@ -111,26 +109,26 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = config.get("language_code")
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = config.get("time_zone")
 
-USE_I18N = True
+USE_I18N = config.get("use_i18n")
 
-USE_L10N = True
+USE_L10N = config.get("use_l10n")
 
-USE_TZ = True
+USE_TZ = config.get("use_tz")
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = config.get("static_url")
 DEFAULT_AUTO_FIELD='django.db.models.AutoField' 
-BLOCKONOMICS_API_KEY=os.environ.get("BLOCKONOMICS_API_KEY")
+BLOCKONOMICS_API_KEY= config.get("blockonomics_api_key")
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = os.environ.get("SERVER_EMAIL") 
-EMAIL_HOST_PASSWORD = os.environ.get("SERVER_EMAIL_PASSWORD")
-EMAIL_PORT = 587
+EMAIL_USE_TLS = config.get("smtp_use_tls")
+EMAIL_HOST = config.get("smtp_host")
+EMAIL_HOST_USER = config.get("smtp_user")
+EMAIL_HOST_PASSWORD = config.get("smtp_password")
+EMAIL_PORT = config.get("smtp_port")
