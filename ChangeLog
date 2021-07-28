@@ -1,0 +1,7 @@
+2021-07-28  nerding-it  <virtualxi99@gmail.com>
+	* satoshi_box/settings.py: Refactored configuration reading logic
+	* config/config.py: Added the wrapper for configuration
+
+2021-07-28  nerding-it  <virtualxi99@gmail.com>
+	* README.md: Removed the markdown file
+	* README.org: Added org-mode README version with more information
