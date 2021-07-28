@@ -1,0 +1,72 @@
+* Overview
+  Website/marketplace to sell files anonymously and receive BTC or BCH.
+
+* Prerequisites
+  We suggest to use ~venv~ [[https://docs.python.org/3/tutorial/venv.html][Virtual Environments]], It should work without that also
+  - Python >= 3.6
+    
+* Before we begin
+  - Generate ~SECRET_KEY~ from https://docs.djangoproject.com/en/dev/ref/settings/#secret-key    
+  - Generate ~BLOCKONOMICS_API_KEY~ from https://www.blockonomics.co/blockonomics#/settings
+  - Add store with above ~BLOCKONOMICS_API_KEY~ in https://www.blockonomics.co/merchants#/stores  
+
+* Installation
+  - Run ~pip install -r requirements.txt~ to install dependencies
+
+* Environment variables
+  You need to export few environment variables mentioned below
+  #+NAME: environment variables
+  #+BEGIN_SRC sh
+    export SECRET_KEY=<Your secret key generated from django site>
+    export BLOCKONOMICS_API_KEY=<API Key generated from blockonmics.co>
+    # Optional
+    export SMTP_HOST=<Some SMTP Host name>
+    export SMTP_USER=<Some User>
+    export SMTP_PASSWORD=<Some Password>
+    export SMTP_PORT=<Some Port>
+  #+END_SRC
+
+* Setting up the database
+  After finishing above steps, From project root folder run below commands to setup the database
+  #+NAME: database
+  #+BEGIN_SRC sh
+	python manage.py migrate
+	python manage.py makemigrations
+	python manage.py migrate
+  #+END_SRC
+
+* Running the application
+** Start the server
+  #+NAME: Start server
+  #+BEGIN_SRC sh
+    # Note: You could change port to any other as well, In my case I am using 8080
+    python manage.py runserver 8080
+  #+END_SRC
+** Access the application
+   Now you could access the application from web browser at http://localhost:8080
+   Note: If you changed port in above step then your link will look like http://localhost:<PORT>, PORT is the number provided in the above step
+
+* Business Model
+  Hosting and running the project can be good revenue source. Owner of
+  website can earn revenue by charging commision from sellers while
+  withdraw. Various features/enhancement can be added by any developer to
+  differentiate their marketplace.
+
+** Funding
+   While eventually, the project should be self sustaining, Blockonomics
+   has initially commited to funds of 1000USD in bitcoin to kickstart the
+   development. Funding will be given to merged pull requests classified as
+   following:
+   
+   - Easy (5-20USD) : Minor changes in UI/styling, few line bug fixes,
+  documentation
+   - Medium (20-100USD): Adding a minor feature that requires 10+ lines of
+  code, substantial frontend functionality
+   - Hard (100-250USD): A new feature that noticeably increases the project
+  functionality, major refactoring / new UI components
+
+** Bounties paid till now
+   - [[https://www.blockonomics.co/api/tx?txid=1819ca971d992e87df59c237d1916402ce6dbe0d51dd3236c5a6b02164034f70&addr=bc1qhnqgfmma6y00ksw9ktpzvvpqut0sa4d8n7y726][20USD]] to @vv181 for [[https://github.com/blockonomics/FileShop/pull/4][PR#4]], [[https://github.com/blockonomics/FileShop/pull/8][PR#8]] and [[https://github.com/blockonomics/FileShop/pull/10][PR #10]]
+
+** BitcoinTalk Discussion Thread
+   https://bitcointalk.org/index.php?topic=5343726.0
