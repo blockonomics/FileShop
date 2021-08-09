@@ -234,15 +234,11 @@ class PaymentStatusView(generic.View):
     @method_decorator(never_cache)
     def get(self, request, *args, **kwargs):
         payment = self.get_payment(**kwargs)
-        try:
-            request.session["payment"][
-                "status_of_transaction"
-            ] = payment.status_of_transaction
-            request.session.modified = True
-        except KeyError:
-            request.session["payment"] = {
-                "status_of_transaction": payment.status_of_transaction
-            }
+
+        if payment.rbf == False:
+            status_of_view = 2
+        else:
+            status_of_view = payment.status_of_transaction
 
         context = {
             "payment": payment,
@@ -252,10 +248,9 @@ class PaymentStatusView(generic.View):
                 )
             ),
         }
-
         return render(
             request,
-            self.payment_status_view[payment.status_of_transaction],
+            self.payment_status_view[status_of_view],
             context=context,
         )
 
@@ -286,8 +281,7 @@ class DownloadFiles(generic.View):
         payment = self.get_payment(**kwargs)
 
         try:
-            status_of_transaction = request.session["payment"]["status_of_transaction"]
-            if status_of_transaction == 2:
+            if payment.status_of_transaction == 2 or payment.rbf == False:
                 files = payment.product.files_list
                 zipped_file = zipFiles(files)
                 response = HttpResponse(
@@ -332,5 +326,11 @@ class UpdatePaymentStatusCallback(generic.View):
                 html_email_template_name=self.email_template,
                 extra_email_context=self.extra_email_context,
             )
+
+        try:
+            payment.rbf = request.GET["rbf"]
+        except:
+            payment.rbf = False
+
         payment.save()
         return HttpResponse(200)
