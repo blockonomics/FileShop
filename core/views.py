@@ -327,9 +327,12 @@ class UpdatePaymentStatusCallback(generic.View):
                 extra_email_context=self.extra_email_context,
             )
 
-        try:
-            payment.rbf = request.GET["rbf"]
-        except:
+
+        if request.GET.get("rbf") is not None and int(request.GET["rbf"]) == 1:
+            payment.rbf = True
+        elif request.GET.get("rbf") is None and int(request.GET["status"]) != 0:
+            pass
+        else:
             payment.rbf = False
 
         payment.save()
