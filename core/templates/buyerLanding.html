@@ -13,14 +13,15 @@
       <h5 class="card-title">{{object.product_name}}</h5>
       <p class="card-text">{{object.product_description}}</p>
       <div class='row mt-3 mx-0'>
-      <p class="card-price my-0">{{btc_price}} BTC ≈ {{usd_price}} USD</p>
-      <button type="submit" id='submitbtn' class="btn ml-auto"><a href="{% url 'core:product_pay_buyer' order_id%}?crypto=BTC"
-        style="text-decoration:none;color:white;">I want this! </a></button>
-        {% comment %} <button type="submit" id='submitbtn' class="btn"><a
-        href="{% url 'core:product_pay_buyer' order_id%}?crypto=BCH" style="text-decoration:none;color:black;">Buy
-        in BCH -
-        {{bch_price}}</a></button>
+        <p class="card-price my-0">{{btc_price}} BTC ≈ {{usd_price}} USD</p>
+        <button type="submit" id='submitbtn' class="btn ml-auto"><a href="{% url 'core:product_pay_buyer' order_id_btc %}?crypto=BTC"
+          style="text-decoration:none;color:white;">Buy using BTC! </a></button>
+      <div class='row mt-3 mx-0'>
+        <p class="card-price my-0">{{bch_price}} BCH ≈ {{usd_price}} USD</p>
+        <button type="submit" id='submitbtn' class="btn ml-auto"><a href="{% url 'core:product_pay_buyer' order_id_bch %}?crypto=BCH"
+            style="text-decoration:none;color:white;">Buy Using BCH! </a></button>
       </div>
+{% comment %}
     </div>
   </div>
   <h2></h2>

@@ -28,12 +28,21 @@
       </button>
     </div>
 
-    <div class="row justify-content-center my-2">
-      <div class="form-control col-10 col-md-5 count1 rounded m-2 text-left p-1" readonly>
-        <p class='mb-0 text-dark'>Product views: {% get_hit_count for object %}</p>
+    <div class="row justify-content-center my-2 px-3">
+      <div class="col-10 col-md-4 count1 rounded my-2 text-left px-1">
+        <div class="form-control" readonly>
+          <p class='text-dark'>Product views: {% get_hit_count for object %}</p>
+        </div>
       </div>
-      <div class="form-control col-10 col-md-5 count1 rounded m-2 text-left p-1" readonly>
-        <p class='mb-0 text-dark'>BTC Balance: {{btc_balance}}</p>
+      <div class="col-10 col-md-4 count1 rounded my-2 text-left px-1">
+        <div class="form-control" readonly>
+          <p class='text-dark'>BTC Balance: {{btc_balance}}</p>
+        </div>
+      </div>
+      <div class="col-10 col-md-4 count1 rounded my-2 text-left px-1">
+        <div class="form-control" readonly>
+          <p class='text-dark'>BCH Balance: {{bch_balance}}</p>
+        </div>
       </div>
       {% comment %} <div class="col-4 count1">
         <h5 class='mb-0'>BCH Balance</h5>

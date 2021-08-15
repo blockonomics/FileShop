@@ -4,9 +4,15 @@ from .models import Product
 from django.conf import settings
 
 
-base_url = "https://www.blockonomics.co/api"
+base_url = {
+    "BTC": "https://www.blockonomics.co/api",
+    "BCH": "https://bch.blockonomics.co/api",
+}
 headers = {"Authorization": "Bearer " + settings.BLOCKONOMICS_API_KEY}
-conversion = {"BTC": lambda currency: f"{base_url}/price?currency={currency}"}
+conversion = {
+    "BTC": lambda currency: f"{base_url['BTC']}/price?currency={currency}",
+    "BCH": lambda currency: f"{base_url['BCH']}/price?currency={currency}",
+}
 
 
 def exchanged_rate(amount, crypto, currency) -> float:
@@ -23,7 +29,7 @@ def exchanged_rate_to_usd(amount, crypto, currency) -> float:
 
 
 def create_payment(product, crypto):
-    url = f"{base_url}/new_address"
+    url = f"{base_url[crypto]}/new_address"
     response = requests.post(url, headers=headers)
     response.raise_for_status()
     address = response.json()["address"]

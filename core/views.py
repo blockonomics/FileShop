@@ -117,7 +117,7 @@ class ProductSellerView(generic.DetailView):
     def get_context_data(self, **kwargs):
         context = super(ProductSellerView, self).get_context_data(**kwargs)
         context["btc_balance"] = context["object"].btc_balance
-        # context["bch_balance"]=context["object"].bch_balance
+        context["bch_balance"] = context["object"].bch_balance
         context["public_uri"] = self.request.build_absolute_uri(
             reverse("core:product_info_buyer", kwargs={"uid": context["object"].uid})
         )
@@ -142,10 +142,14 @@ class ProductPublicView(HitCountDetailView):
         context = super(ProductPublicView, self).get_context_data(**kwargs)
         context["usd_price"] = str(self.object.price)
         context["bits"] = exchanged_rate(self.object.price, "BTC", self.object.currency)
+        context["bits_bch"] = exchanged_rate(self.object.price, "BCH", self.object.currency)
         context["btc_price"] = context["bits"]/pow(10, 8)
+        context["bch_price"] = context["bits_bch"]/pow(10, 8)
         product = get_object_or_404(Product, uid=self.kwargs.get("uid"))
         payment = create_payment_helper(self.request, product, "BTC", self.object.price)
-        context["order_id"] = payment.order_id
+        payment_bch = create_payment_helper(self.request, product, "BCH", self.object.price)
+        context["order_id_btc"] = payment.order_id
+        context["order_id_bch"] = payment_bch.order_id
         # context["bch_price"]=str(exchanged_rate(self.object.price,"BTC",self.object.currency))[:6]
         return context
 
@@ -158,8 +162,8 @@ class IntializePayment(generic.View):
         # product = get_object_or_404(Product, uid=kwargs["uid"])
         crypto = request.GET.get("crypto", None)
         # if crypto not in ["BTC","BCH"]:
-        if crypto not in ["BTC"]:
-            return HttpResponse("Invalid crypto currency,please use BTC", status=400)
+        if crypto not in ["BTC", "BCH"]:
+            return HttpResponse("Invalid crypto currency,please use BTC or BCH", status=400)
 
         address, expected_value, payment, usd_price = None, None, None, None
         try:

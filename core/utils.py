@@ -84,7 +84,7 @@ def check_session_validity(request, product):
 
 def create_payment_helper(request, product, crypto, usd_price):
     address, expected_value = create_payment(product, crypto)
-    usd_price = exchanged_rate_to_usd(expected_value, "BTC", "USD")
+    usd_price = exchanged_rate_to_usd(expected_value, crypto, "USD")
     payment = Payment.objects.create(
         address=address, expected_value=expected_value, crypto=crypto, product=product, usd_price=usd_price
     )
