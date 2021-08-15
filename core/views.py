@@ -235,11 +235,6 @@ class PaymentStatusView(generic.View):
     def get(self, request, *args, **kwargs):
         payment = self.get_payment(**kwargs)
 
-        if payment.rbf == False:
-            status_of_view = 2
-        else:
-            status_of_view = payment.status_of_transaction
-
         context = {
             "payment": payment,
             "download_uri": request.build_absolute_uri(
@@ -250,7 +245,7 @@ class PaymentStatusView(generic.View):
         }
         return render(
             request,
-            self.payment_status_view[status_of_view],
+            self.payment_status_view[payment.status_of_transaction],
             context=context,
         )
 
@@ -281,7 +276,7 @@ class DownloadFiles(generic.View):
         payment = self.get_payment(**kwargs)
 
         try:
-            if payment.status_of_transaction == 2 or payment.rbf == False:
+            if payment.status_of_transaction == 2:
                 files = payment.product.files_list
                 zipped_file = zipFiles(files)
                 response = HttpResponse(
@@ -328,12 +323,8 @@ class UpdatePaymentStatusCallback(generic.View):
             )
 
 
-        if request.GET.get("rbf") is not None and int(request.GET["rbf"]) == 1:
-            payment.rbf = True
-        elif request.GET.get("rbf") is None and int(request.GET["status"]) != 0:
-            pass
-        else:
-            payment.rbf = False
+        if request.GET.get("rbf") is None and int(request.GET["status"]) == 0:
+            payment.status_of_transaction = 2
 
         payment.save()
         return HttpResponse(200)

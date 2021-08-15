@@ -90,7 +90,6 @@ class Payment(models.Model):
     )
     txid: Optional[str] = models.TextField(null=True)
     address: str = models.TextField(null=True)
-    rbf: bool = models.BooleanField(null=True, default=True)
     order_id: str = models.TextField(null=True)
     product: Product = models.ForeignKey(
         Product, related_name="payments", on_delete=models.CASCADE
