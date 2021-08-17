@@ -188,6 +188,12 @@ class IntializePayment(generic.View):
             "payment_id": payment.id,
         }
         request.session.modified = True 
+
+        if crypto == "BTC":
+            qr_crypto_type = "bitcoin"
+        elif crypto == "BCH":
+            qr_crypto_type = "bitcoincash"
+            
         context = {
             "address": address,
             "expected_value": expected_value,
@@ -195,6 +201,7 @@ class IntializePayment(generic.View):
             "crypto": crypto,
             "last_order": request.session["last_order"],
             "payment_id": payment.id,
+            "qr_crypto_type": qr_crypto_type
         }
 
         return render(request, self.template_name, context=context)
