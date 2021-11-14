@@ -1,6 +1,8 @@
 ## Overview
 Website/marketplace to sell files anonymously and receive BTC or BCH.
 
+demo: http://fileshop.online/
+
 The application has two aspects:
 1. API Server (Built over Django 3)
 2. Frontend (Built over Vue 2)
